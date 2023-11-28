@@ -1,93 +1,102 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
-
----
-
-# svelte app
-
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+<p align="center">
+<img width="200" valign="top" src="https://assets.seerbitapi.com/images/seerbit_logo_type.png" data-canonical-src="https://assets.seerbitapi.com/images/seerbit_logo_type.png" style="max-width:100%; ">
+</p>
+ 
+# Seerbit Svelte Package
+ 
+Seerbit Svelte Package can be used to integrate the SeerBit payment gateway into your svelte application.
+ 
+## Requirements
+ 
+Register for a merchant account on [Seerbit Merchant Dashboard](https://dashboard.seerbitapi.com) to get started.
+ 
+```
+  Svelte application
+  Node js
+  NPM
+```
+ 
+ ## Instalation
 
 ```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+npm install seerbit-svelte
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+## API Documentation
 
+https://doc.seerbit.com
 
-## Get started
+## Support
 
-Install the dependencies...
+If you have any problems, questions or suggestions, create an issue here or send your inquiry to care@seerbit.com
 
-```bash
-cd svelte-app
-npm install
+## Implementation
+
+You should already have your API keys. If not, go to [dashboard.seerbitapi.com](https://dashboard.seerbitapi.com). Login -> Settings menu -> API Keys menu -> Copy your public key
+
+## Properties
+
+| Property            | Type               | Required | Default            | Desc                                                                                                                                                                                                                                    |
+| ------------------- | ------------------ | -------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| currency            | `String`           | Optional | NGN                | The currency for the transaction e.g NGN                                                                                                                                                                                                |
+| email               | `String`           | Required | None               | The email of the user to be charged                                                                                                                                                                                                     |
+| description         | `String`           | Optional | None               | The transaction description which is optional                                                                                                                                                                                           |
+| fullName            | `String`           | Optional | None               | The fullname of the user to be charged                                                                                                                                                                                                  |
+| country             | `String`           | Optional | None               | Transaction country which can be optional                                                                                                                                                                                               |
+| transRef            | `String`           | Required | None               | Set a unique transaction reference for every transaction                                                                                                                                                                                |
+| amount              | `String`           | Required | None               | The transaction amount in kobo                                                                                                                                                                                                          |
+| callbackUrl         | `String`           | Optional | None               | This is the redirect url when transaction is successful                                                                                                                                                                                 |
+| publicKey           | `String`           | Required | None               | Your Public key or see above step to get yours                                                                                                                                                                                          |
+| closeOnSuccess      | `bool`             | Optional | False              | Close checkout when trasaction is successful                                                                                                                                                                                            |
+| closePrompt         | `bool`             | Optional | False              | Close the checkout page if transaction is not initiated                                                                                                                                                                                 |
+| setAmountByCustomer | `bool`             | Optional | False              | Set to true if you want user to enter transaction amount                                                                                                                                                                                |
+| pocketRef           | `String`           | Optional | None               | This is your pocket reference for vendors with pocket                                                                                                                                                                                   |
+| vendorId            | `String`           | Optional | None               | This is the vendorId of your business using pocket                                                                                                                                                                                      |
+| tokenize            | `bool`             | Optional | False              | Tokenize card                                                                                                                                                                                                                           |
+| customization       | CustomizationModel | Optional | CustomizationModel | CustomizationMode( borderColor: "#000000", backgroundColor: "#004C64", buttonColor: "#0084A0", paymentMethod:[PayChannel.card, PayChannel.account, PayChannel.transfer, PayChannel.momo], confetti: false , logo: "logo_url or base64") |
+| onSuccess           | `Method`           | Optional | None               | Callback method if transaction was successful                                                                                                                                                                                           |
+| onCancel            | `Method`           | Optional | None               | Callback method if transaction was cancelled                                                                                                                                                                                            |
+
+## Usage
+
+```Svelte page
+
+ <script>
+  import CheckoutScript from './CheckoutScript.svelte';
+</script>
+
+<CheckoutScript
+  public_key="SBTESTPUBK_t4G16GCA1O51AV0Va3PPretaisXubSw1"
+  tranref={new Date().getTime()}
+  currency="NGN"
+  country="NG"
+  amount="145.00"
+  email="test@emaildomain.com"
+  mobile_no=""
+  productId=""
+  description=""
+  setAmountByCustomer={false}
+  full_name="John Doe"
+  tokenize={false}
+  planId=""
+  pocketReference=""
+  vendorId=""
+  callbackurl="http://yourdomain.com"
+  payment_method= {["ussd"]}
+  confetti = {true}
+  logo= "logo url or base64"
+  buttonText="Make Payment"
+  buttonCustomization={{
+    paddingVertical: 40,
+    paddingHorizontal: 40,
+    width: 50,
+    color: "#fff",
+    backgroundColor: "#000",
+    fontSize: 10,
+    borderRadius:20
+  }}
+/>
+
 ```
 
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-now deploy --name my-project
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+`onSuccess` you will recieve a Map containing the response from the payment request.

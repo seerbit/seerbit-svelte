@@ -17,7 +17,10 @@
   export let callbackurl;
   export let buttonText;
   export let buttonCustomization;
-
+  export let  payment_method;
+  export let confetti;
+  export let logo;
+  export let theme;
 
   function paywithSeerbit() {
     SeerbitPay({
@@ -37,6 +40,17 @@
       pocketReference,
       vendorId,
       callbackurl,
+      Customization: {
+      theme: {
+         border_color:theme.border_color,
+         background_color: theme.background_colo,
+         button_color: theme.button_color,
+      }, 
+       payment_method:payment_method,
+       confetti: confetti,
+       logo: logo,
+      },
+
     },
     function callback(response, closeModal) {
       console.log(response);
