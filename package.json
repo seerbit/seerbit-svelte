@@ -1,6 +1,20 @@
 {
   "name": "seerbit-svelte",
   "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "svelte": "src/index.js",
+  "type": "module",
+  "description": "Seerbit Svelte SDK",
+  "files": ["dist"],
+  "homepage": "https://github.com/seerbit/seerbit-svelte",
+  "bugs": {
+    "url": "https://github.com/seerbit/seerbit-svelte/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seerbit/seerbit-svelte.git"
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -17,5 +31,13 @@
   },
   "dependencies": {
     "sirv-cli": "^0.4.4"
-  }
+  },
+  "license": "MIT",
+  "keywords": [
+    "svelte",
+    "Payment",
+    "Gateway",
+    "Payment Gateway",
+    "Seerbit"
+  ]
 }
