@@ -93,6 +93,8 @@ You should already have your API keys. If not, go to [dashboard.seerbitapi.com](
 		}}
 		onSuccess={(response, closeModal) => {
 			console.log(response);
+
+      setTimeout(() => closeModal(), 3000)
 		}}
 		close={(close) => {
 			console.log(close);
