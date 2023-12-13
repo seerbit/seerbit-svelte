@@ -77,7 +77,7 @@ You should already have your API keys. If not, go to [dashboard.seerbitapi.com](
 		productId=""
 		description=""
 		planId=""
-    vendorId=""
+		vendorId=""
 		pocketReference=""
 		setAmountByCustomer={false}
 		tokenize={false}
