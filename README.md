@@ -62,39 +62,47 @@ You should already have your API keys. If not, go to [dashboard.seerbitapi.com](
 ```Svelte page
 
  <script>
-  import CheckoutScript from './CheckoutScript.svelte';
+  import Seerbit from "seerbit-svelte";
 </script>
 
-<CheckoutScript
-  public_key="SBTESTPUBK_t4G16GCA1O51AV0Va3PPretaisXubSw1"
-  tranref={new Date().getTime()}
-  currency="NGN"
-  country="NG"
-  amount="145.00"
-  email="test@emaildomain.com"
-  mobile_no=""
-  productId=""
-  description=""
-  setAmountByCustomer={false}
-  full_name="John Doe"
-  tokenize={false}
-  planId=""
-  pocketReference=""
-  vendorId=""
-  callbackurl="http://yourdomain.com"
-  payment_method= {["ussd"]}
-  confetti = {true}
-  logo= "logo url or base64"
-  buttonText="Make Payment"
-  buttonCustomization={{
-    paddingVertical: 40,
-    paddingHorizontal: 40,
-    width: 50,
-    color: "#fff",
-    backgroundColor: "#000",
-    fontSize: 10,
-    borderRadius:20
-  }}
+	<Seerbit   
+		public_key="YOUR PUBLIC KEY"
+		tranref={new Date().getTime()}
+		full_name="John Doe"
+		amount="145.00"
+		email="test@emaildomain.com"
+		currency="NGN"
+		country="NG"
+		mobile_no=""
+		productId=""
+		description=""
+		planId=""
+		vendorId=""
+		pocketReference=""
+		setAmountByCustomer={false}
+		tokenize={false}
+		customization={{
+			payment_method: ["card", "account", "transfer", "ussd", "momo"],
+			confetti: true,
+			logo: "",
+			theme: {
+			border_color:'fff',
+			background_color:'fff',
+			button_color:'fff',
+			}
+		}}
+		onSuccess={(response, closeModal) => {
+			console.log(response);
+
+      setTimeout(() => closeModal(), 3000)
+		}}
+		close={(close) => {
+			console.log(close);
+		}}
+		buttonText="Make Payment"
+		buttonStyle={{
+			style: "padding-top: 40px; padding-bottom: 40px; width: 50%; border-radius: 20px; color: #fff; background-color: red; font-size: 10px",
+		}}
 />
 
 ```
